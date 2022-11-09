@@ -15,10 +15,7 @@ set ignorecase
 set smartcase
 nmap Q <Nop>set noerrorbells visualbell t_vb=
 set mouse+=a
-nnoremap <Left>  :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up>    :echoe "Use k"<CR>
-nnoremap <Down>  :echoe "Use j"<CR>
+
 " ...and in insert mode
 " no, don't ban arrow in insert mode
 
@@ -28,7 +25,8 @@ syntax enable
 let g:gruvbox_italic=1
 set background=dark
 colorscheme gruvbox
-" 插件开始的位置
+
+" 插件开始的位置, only for wsl2:ubuntu20.04
 call plug#begin('~/.vim/plugged')
 
 " 代码自动完成，安装完插件还需要额外配置才可以使用
@@ -80,7 +78,6 @@ Plug 'dgryski/vim-godef'
 
 " 可以在 vim 中自动完成
 "Plug 'Shougo/neocomplete.vim'
-
 
 " 插件结束的位置，插件全部放在此行上面
 call plug#end()
