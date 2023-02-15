@@ -73,7 +73,6 @@ return
 :*:]qm::2922667152@qq.com
 :*:]gm::joiy9088@gmail.com
 :*:]163m::xiahongchao09@163.com
-:*:]p::13315983848
 
 
 ;==== 浏览器-搜索相关
