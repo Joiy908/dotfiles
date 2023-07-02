@@ -14,6 +14,16 @@ set hidden
 set ignorecase
 set smartcase
 
+" Set tab size for C/C++ files
+autocmd FileType c,cpp,javascript set tabstop=2
+autocmd FileType c,cpp,javascript set shiftwidth=2
+autocmd FileType c,cpp,javascript set expandtab
+
+" Set tab size for Python files
+autocmd FileType python set tabstop=4
+autocmd FileType python set shiftwidth=4
+autocmd FileType python set expandtab
+
 " mappings
 nmap <Space> :
 imap jkjk <Esc>
