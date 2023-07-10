@@ -14,6 +14,7 @@ set hidden
 set ignorecase
 set smartcase
 
+
 " Set tab size for C/C++ files
 autocmd FileType c,cpp,javascript set tabstop=2
 autocmd FileType c,cpp,javascript set shiftwidth=2
@@ -23,7 +24,6 @@ autocmd FileType c,cpp,javascript set expandtab
 autocmd FileType python set tabstop=4
 autocmd FileType python set shiftwidth=4
 autocmd FileType python set expandtab
-
 " mappings
 nmap <Space> :
 imap jkjk <Esc>
@@ -38,11 +38,14 @@ nnoremap <Down>  :echoe "Use j"<CR>
 
 nnoremap <C-p>  :CtrlP<CR>
 
+map <C-e> ::NERDTreeMirror<CR>
+map <C-e> :NERDTreeToggle<CR>
+
+" theme
 syntax enable
 let g:gruvbox_italic=1
 set background=dark
 colorscheme gruvbox
-
 
 
 let g:ctrlp_show_hidden = 1
@@ -78,3 +81,4 @@ Plug 'airblade/vim-gitgutter'
 
 " 插件结束的位置，插件全部放在此行上面
 call plug#end()
+
