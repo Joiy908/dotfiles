@@ -111,14 +111,69 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# only for wsl2
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Get the OS type
+os_type=$(uname -s)
+
+# Check if the OS is Linux (WSL)
+if [[ "$os_type" == "Linux" ]]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
 
 
-# Functions
-source ~/.shell/functions.sh
+########### #################### Functions
+here() {
+    local loc
+    if [ "$#" -eq 1 ]; then
+        loc=$(realpath "$1")
+    else
+        loc=$(realpath ".")
+    fi
+    ln -sfn "${loc}" "$HOME/.shell.here"
+    echo "here -> $(readlink $HOME/.shell.here)"
+}
 
-# Alias
-source ~/.shell/aliases.sh
+there="$HOME/.shell.here"
+
+there() {
+    cd "$(readlink "${there}")"
+}
+# source ~/.shell/functions.sh
+########### ################### end Funtions
+# ======================================= Alias
+
+# ls aliases
+alias ll='ls -lah'
+alias la='ls -A'
+alias l='ls'
+
+# Aliases to protect against overwriting
+alias cp='cp -i'
+alias mv='mv -i'
+
+# vim
+alias v="vim"
+
+# 手误打错命令也没关系
+alias sl=ls
+
+# 重新定义一些命令行的默认行为
+alias mkdir="mkdir -p"     # -p make parent dirs as needed
+
+alias gl="git log --all --graph --decorate --oneline"
+alias gs="git status"
+alias gc="git commit"
+
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bashh_aliases
+fi
+
+alias acenv="source .venv/bin/activate"
+alias go186="cd /mnt/d/src/etc/CS186"
+alias go110="cd /mnt/d/src/etc/CS110L"
+
+alias gong="cd /usr/local/nginx"
+# source ~/.shell/aliases.sh
+# ====================================== end Alias
