@@ -45,40 +45,45 @@ map <C-e> :NERDTreeToggle<CR>
 syntax enable
 let g:gruvbox_italic=1
 set background=dark
-colorscheme gruvbox
 
 
-let g:ctrlp_show_hidden = 1
-" 插件开始的位置
-call plug#begin('~/.vim/plugged')
-
-" 代码自动完成，安装完插件还需要额外配置才可以使用
-Plug 'ycm-core/YouCompleteMe'
-
-" 用来提供一个导航目录的侧边栏
-Plug 'scrooloose/nerdtree'
-
-" 可以使 nerdtree 的 tab 更加友好些
-Plug 'jistr/vim-nerdtree-tabs'
-
-" 可以在导航目录中看到 git 版本信息
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-
-" 查看当前代码文件中的变量和函数列表的插件，
-" 可以切换和跳转到代码中对应的变量和函数的位置
-" 大纲式导航, Go 需要 https://github.com/jstemmer/gotags 支持
-Plug 'preservim/tagbar'
-
-" 自动补全括号的插件，包括小括号，中括号，以及花括号
-Plug 'jiangmiao/auto-pairs'
-
-" Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
-Plug 'vim-airline/vim-airline'
-
-" 可以在文档中显示 git 信息
-Plug 'airblade/vim-gitgutter'
+if system('uname') =~# 'Linux'
+    colorscheme gruvbox
 
 
-" 插件结束的位置，插件全部放在此行上面
-call plug#end()
+    " let ctrlp show hidden files
+    let g:ctrlp_show_hidden = 1
+    " 插件开始的位置
+    call plug#begin('~/.vim/plugged')
 
+    " 代码自动完成，安装完插件还需要额外配置才可以使用
+    Plug 'ycm-core/YouCompleteMe'
+
+    " 用来提供一个导航目录的侧边栏
+    Plug 'scrooloose/nerdtree'
+
+    " 可以使 nerdtree 的 tab 更加友好些
+    Plug 'jistr/vim-nerdtree-tabs'
+
+    " 可以在导航目录中看到 git 版本信息
+    " Plug 'Xuyuanp/nerdtree-git-plugin'
+
+    " 查看当前代码文件中的变量和函数列表的插件，
+    " 可以切换和跳转到代码中对应的变量和函数的位置
+    " 大纲式导航, Go 需要 https://github.com/jstemmer/gotags 支持
+    Plug 'preservim/tagbar'
+
+    " 自动补全括号的插件，包括小括号，中括号，以及花括号
+    Plug 'jiangmiao/auto-pairs'
+
+    " Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
+    Plug 'vim-airline/vim-airline'
+
+    " 可以在文档中显示 git 信息
+    Plug 'airblade/vim-gitgutter'
+
+
+    " 插件结束的位置，插件全部放在此行上面
+    call plug#end()
+
+endif
