@@ -165,11 +165,6 @@ alias gl="git log --all --graph --decorate --oneline"
 alias gs="git status"
 alias gc="git commit"
 
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bashh_aliases
-fi
-
 alias acenv="source .venv/bin/activate"
 alias go186="cd /mnt/d/src/etc/CS186"
 alias go110="cd /mnt/d/src/etc/CS110L"
