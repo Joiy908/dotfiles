@@ -1,4 +1,4 @@
-#NoEnv
+﻿#NoEnv
 #MaxHotkeysPerInterval 999
 SendMode Input
 SetWorkingDir %A_ScriptDir%
@@ -21,24 +21,20 @@ return
 !h::Send {Left}
 !l::Send {Right}
 
-; === vim: open a line
-!o:: Send {End}`n
+; === vim
+!o:: Send {End}`n ; open a line
+!i:: Send {Home} ; I in vim
+!a:: Send {End} ; A in vim
 
-; === del
-!d:: Send {BackSpace}
-
-;===移动行首
-![::send,{Home}
-!]::send,{End}
-
+!d:: Send {Home}+{End}{Del} ; del curr line
 ;=== copy and past
 !y:: Send, ^c
-; !p:: Send, ^v
+!p:: Send, ^+v
 
 ;==== CapsLock 层
 ; 删除到行尾
 CapsLock & ]:: Send, +{End}{Del}
-; 删除到行首 
+; 删除到行首
 CapsLock & [:: Send, +{Home}{Del}
 ; CapsLock+kjhl 选中
 CapsLock & k::Send {ShiftDown}{Up}{shiftup}
@@ -73,6 +69,7 @@ return
 :*:]qm::2922667152@qq.com
 :*:]gm::joiy9088@gmail.com
 :*:]163m::xiahongchao09@163.com
+:*:]p::13315983848
 
 
 ;==== 浏览器-搜索相关
@@ -92,11 +89,11 @@ return
         run https://cn.bing.com/search?q=%content%
 return
 
-!p:: ;复制选中的文字, google
-    send ^c
-    sleep,200
-    run https://www.google.com/search?q=%clipboard%
-return
+;!p:: ;复制选中的文字, google
+;    send ^c
+;    sleep,200
+;    run https://www.google.com/search?q=%clipboard%
+;return
 
 #b:: ; win + b进入选中链接
     send ^c
@@ -140,7 +137,8 @@ Return,0
 #c:: ; get 当前选中文件的路径
     send ^c
     sleep,200
-    clipboard=%clipboard% ;windows 复制的时候，剪贴板保存的是“路径”。只是路径不是字符串，只要转换成字符串就可以粘贴出来了
+    clipboard=%clipboard% ;windows 复制的时候，剪贴板保存的是“路径”。只是路径不是字符串，只要转换成字符串就可以粘贴出来
+了
     tooltip,%clipboard% ;提示文本
     sleep,300
     tooltip,
