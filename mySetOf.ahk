@@ -10,7 +10,7 @@ CoordMode, ToolTip, Screen
 ^Capslock::SetCapsLockState, On
 
 
-;===== vim 反向键映射
+;===== vim 方向键映射
 !k::
   Send {Up}
 return
@@ -21,7 +21,7 @@ return
 !h::Send {Left}
 !l::Send {Right}
 
-; === vim
+; === vim edit
 !o:: Send {End}`n ; open a line
 !i:: Send {Home} ; I in vim
 !a:: Send {End} ; A in vim
@@ -30,6 +30,8 @@ return
 ;=== copy and past
 !y:: Send, ^c
 !p:: Send, ^+v
+;=== undo
+!u:: Send, ^z
 
 ;==== CapsLock 层
 ; 删除到行尾
