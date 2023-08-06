@@ -41,6 +41,9 @@ nnoremap <C-p>  :CtrlP<CR>
 map <C-e> ::NERDTreeMirror<CR>
 map <C-e> :NERDTreeToggle<CR>
 
+" yank to windows clipboard
+vmap ;y : !/mnt/c/Windows/System32/clip.exe<cr>u''
+
 " theme
 syntax enable
 let g:gruvbox_italic=1
