@@ -32,6 +32,8 @@ return
 !p:: Send, ^+v
 ;=== undo
 !u:: Send, ^z
+;=== delete a word
+!w:: Send ^+{Left}{Delete}
 
 ;==== CapsLock 层
 ; 删除到行尾
