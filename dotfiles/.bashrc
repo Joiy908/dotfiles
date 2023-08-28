@@ -56,10 +56,26 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# === prompt 1
+#if [ "$color_prompt" = yes ]; then
+#    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#else
+#    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+#fi
+#unset color_prompt force_color_prompt
+
+# === prompt 2
+# Define color codes
+RESET="\[\e[0m\]"
+GREEN="\[\e[32m\]"
+CYAN="\[\e[36m\]"
+PURPLE="\[\033[35m\]"
+YELLOW="\[\e[33m\]"
+
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+        PS1="${debian_chroot:+($debian_chroot)}${CYAN}\u${RESET}${GREEN}@${RESET}${PURPLE}\h${RESET}:${YELLOW}\w${RESET}\n${CYAN}❯ ${RESET}"
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w\n❯ "
 fi
 unset color_prompt force_color_prompt
 
@@ -171,4 +187,4 @@ alias go110="cd /mnt/d/src/etc/CS110L"
 
 alias gong="cd /usr/local/nginx"
 # source ~/.shell/aliases.sh
-# ====================================== end Alias
+#  ====================================== end Alias
