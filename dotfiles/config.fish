@@ -7,8 +7,14 @@ function fish_prompt --description 'Write out the prompt'
     echo -n "╭─"
     set_color normal
 
+    # show user
+    set_color green
+    echo -n $USER
+    set_color white
+    echo -n '❙'
+
     # Display current directory
-    set_color blue
+    set_color yellow
     echo -n (prompt_pwd)
     set_color normal
 
