@@ -45,6 +45,9 @@ map <C-e> :NERDTreeToggle<CR>
 vmap ;y : !/mnt/c/Windows/System32/clip.exe<cr>u''
 
 " theme
+syntax enable
+let g:gruvbox_italic=1
+set background=dark
 
 if system('uname') =~# 'Linux'
     autocmd vimenter * ++nested colorscheme gruvbox
