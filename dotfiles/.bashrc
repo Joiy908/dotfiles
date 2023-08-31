@@ -169,7 +169,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 # vim
-alias v="vim"
+alias v="nvim"
 
 # 手误打错命令也没关系
 alias sl=ls

@@ -44,22 +44,25 @@ map <C-e> :NERDTreeToggle<CR>
 " yank to windows clipboard
 vmap ;y : !/mnt/c/Windows/System32/clip.exe<cr>u''
 
-" theme
-syntax enable
-let g:gruvbox_italic=1
-set background=dark
 
 if system('uname') =~# 'Linux'
+
+    " theme
+    syntax enable
+    let g:gruvbox_italic=1
+    set background=dark
     autocmd vimenter * ++nested colorscheme gruvbox
 
     " let ctrlp show hidden files
     let g:ctrlp_show_hidden = 1
+    nmap <F8> :TagbarToggle<CR>
+    let g:tagbar_autofocus = 1
     " 插件开始的位置
     call plug#begin('~/.vim/plugged')
 
     " theme
     Plug 'morhetz/gruvbox'
-
+    Plug 'kien/ctrlp.vim'
     " 代码自动完成，安装完插件还需要额外配置才可以使用
     Plug 'ycm-core/YouCompleteMe'
 

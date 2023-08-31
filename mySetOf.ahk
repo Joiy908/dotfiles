@@ -58,7 +58,8 @@ CapsLock & l::Send {ShiftDown}{Right}{shiftup}
 !c:: Run, D:\Program Files (x86)\Clash for Windows\Clash for Windows.exe
 !q:: Run, D:\Program Files (x86)\Q-Dir\Q-Dir_x64.exe
 
-
+; ctrl+alt+t
+^!t:: Run "wt.exe"
 ;=== hot word
 ; ::mgn::margin-left:0 ;输入mgn+终止符(space/.)触发
 :*:mgn::margin-left:0 ; 输入后直接触发
@@ -69,11 +70,6 @@ CapsLock & l::Send {ShiftDown}{Right}{shiftup}
   FormatTime, CurrentDateTime,, yyyy-MM-dd
   SendInput %CurrentDateTime%
 return
-
-:*:]qm::2922667152@qq.com
-:*:]gm::joiy9088@gmail.com
-:*:]163m::xiahongchao09@163.com
-:*:]p::13315983848
 
 
 ;==== 浏览器-搜索相关
