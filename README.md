@@ -40,7 +40,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 #in nvim :PlugInstall
 #then
-cd whereYCMisInstall
+cd ~/.vim/plugged/YouCompleteMe
 python3 install.py --clangd-completer
 
 ```
