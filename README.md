@@ -12,9 +12,11 @@ ln dotfiles/.vimrc ~/.vimrc
 ln dotfiles/.bashrc ~/.bashrc
 
 mkdir -p ~/.config/fish
+rm ~/.config/fish/config.fish
 ln dotfiles/config.fish ~/.config/fish/config.fish
 
 mkdir -p ~/.config/nvim
+rm ~/.config/nvim/init.vim
 echo "source ~/.vimrc" > ~/.config/nvim/init.vim
 
 
