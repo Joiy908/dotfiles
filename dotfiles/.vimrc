@@ -34,6 +34,9 @@ nnoremap <Left>  :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up>    :echoe "Use k"<CR>
 nnoremap <Down>  :echoe "Use j"<CR>
+" for c coding
+imap ffor for(int i = 0; i < LEN; i++)
+nmap <leader>x :w<CR>:!gcc % && ./a.out<CR>
 " ...and in insert mode
 " no, don't ban arrow in insert mode
 
