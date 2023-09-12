@@ -56,6 +56,9 @@ if system('uname') =~# 'Linux'
     Plug 'jiangmiao/auto-pairs'
 
     Plug 'ycm-core/YouCompleteMe'
+    nnoremap <leader>go :YcmCompleter GoTo<CR>
+    nnoremap <leader>fi :YcmCompleter FixIt<CR>
+    vnoremap <leader>f :YcmCompleter Format<CR>
 
     " file explorer in sidebar 
     Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
