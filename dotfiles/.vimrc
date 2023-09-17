@@ -25,6 +25,9 @@ autocmd FileType python set tabstop=4
 autocmd FileType python set shiftwidth=4
 autocmd FileType python set expandtab
 
+" auto close the preview window after autoCompletion
+autocmd CompleteDone * pclose
+
 " mappings
 nmap <Space> :
 imap jkjk <Esc>
@@ -36,7 +39,9 @@ nnoremap <Up>    :echoe "Use k"<CR>
 nnoremap <Down>  :echoe "Use j"<CR>
 " for c coding
 imap ffor for(int i = 0; i < LEN; i++)
-nnoremap <leader>x :w<CR>:!gcc % && ./a.out<CR>
+nnoremap <leader>x :w<CR>:!gcc % -lm && ./a.out<CR>
+nnoremap <leader>e :w<CR>:!gcc % -E<CR>
+nnoremap <leader>cp :w<CR>:!/bin/cp % ~/d-src/temp<CR>
 " ...and in insert mode
 " no, don't ban arrow in insert mode
 
