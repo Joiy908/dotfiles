@@ -29,7 +29,9 @@ autocmd FileType python set expandtab
 autocmd CompleteDone * pclose
 
 " mappings
-nmap <Space> :
+let mapleader = " "
+nnoremap <leader><Space> :
+nmap <leader>h :noh<CR>
 imap jkjk <Esc>
 nmap Q <Nop>set noerrorbells visualbell t_vb=
 set mouse+=a
@@ -38,9 +40,15 @@ nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up>    :echoe "Use k"<CR>
 nnoremap <Down>  :echoe "Use j"<CR>
 " for c coding
-imap ffor for(int i = 0; i < LEN; i++)
+imap fori for(int i = 0; i < LEN; i++)
+imap forj for(int j = 0; j < LEN; j++)
+imap fork for(int k = 0; k < LEN; k++)
+imap ulog rc = scanf("",);<CR>assert(rc == );
+imap llog printf("
 nnoremap <leader>x :w<CR>:!gcc % -lm && ./a.out<CR>
 nnoremap <leader>e :w<CR>:!gcc % -E<CR>
+" open terminal in nvim
+nnoremap <leader>t :w<CR>:term fish<CR>
 nnoremap <leader>cp :w<CR>:!/bin/cp % ~/d-src/temp<CR>
 " ...and in insert mode
 " no, don't ban arrow in insert mode
