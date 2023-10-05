@@ -57,40 +57,51 @@ nnoremap <leader>cp :w<CR>:!/bin/cp % ~/d-src/temp<CR>
 " yank to windows clipboard
 vmap ;y : !/mnt/c/Windows/System32/clip.exe<cr>u''
 
+if exists('g:vscode')
+    " VSCode extension 
+    nnoremap <leader>fi <Cmd>call VSCodeNotify('editor.action.quickFix')<CR>
+    vnoremap <leader>f <Cmd>call VSCodeCall('editor.action.formatSelection')<CR><Esc>
+    " gd for <leader>go
+    " K to show Hover
+    " to see more: 
+    " https://github.com/vscode-neovim/vscode-neovim/blob/master/vim/vscode-code-actions.vim
+else
+    " ordinary Neovim
+    if system('uname') =~# 'Linux'
+        " === start import plugin
+        call plug#begin('~/.vim/plugged')
 
-if system('uname') =~# 'Linux'
-    " === start import plugin
-    call plug#begin('~/.vim/plugged')
+        " theme
+        Plug 'morhetz/gruvbox'
+        syntax enable
+        let g:gruvbox_italic=1
+        set background=dark
+        autocmd vimenter * ++nested colorscheme gruvbox
 
-    " theme
-    Plug 'morhetz/gruvbox'
-    syntax enable
-    let g:gruvbox_italic=1
-    set background=dark
-    autocmd vimenter * ++nested colorscheme gruvbox
+        Plug 'jiangmiao/auto-pairs'
 
-    Plug 'jiangmiao/auto-pairs'
+        Plug 'ycm-core/YouCompleteMe'
+        nnoremap <leader>go :YcmCompleter GoTo<CR>
+        nnoremap <leader>fi :YcmCompleter FixIt<CR>
+        vnoremap <leader>f :YcmCompleter Format<CR>
 
-    Plug 'ycm-core/YouCompleteMe'
-    nnoremap <leader>go :YcmCompleter GoTo<CR>
-    nnoremap <leader>fi :YcmCompleter FixIt<CR>
-    vnoremap <leader>f :YcmCompleter Format<CR>
+        " file explorer in sidebar 
+        Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+        map <C-e> :NERDTreeToggle<CR>
 
-    " file explorer in sidebar 
-    Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
-    map <C-e> :NERDTreeToggle<CR>
+        Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
+        nmap <F8> :TagbarToggle<CR>
+        let g:tagbar_autofocus = 1
 
-    Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
-    nmap <F8> :TagbarToggle<CR>
-    let g:tagbar_autofocus = 1
+        Plug 'kien/ctrlp.vim'
+        nnoremap <C-p>  :CtrlP<CR>
+        let g:ctrlp_show_hidden = 1
 
-    Plug 'kien/ctrlp.vim'
-    nnoremap <C-p>  :CtrlP<CR>
-    let g:ctrlp_show_hidden = 1
+        " note: this slow down the vim start-up-time
+        " Plug 'vim-airline/vim-airline'
 
-    " note: this slow down the vim start-up-time
-    " Plug 'vim-airline/vim-airline'
-
-    " === end import plugin
-    call plug#end()
+        " === end import plugin
+        call plug#end()
+    endif
 endif
+
