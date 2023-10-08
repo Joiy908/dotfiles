@@ -5,10 +5,9 @@ SetWorkingDir %A_ScriptDir%
 SetCapsLockState, AlwaysOff
 CoordMode, ToolTip, Screen
 
-;==== 锁定CapsLock, ctrl + CapsLock 开启
-*Capslock::SetCapsLockState, AlwaysOff
-^Capslock::SetCapsLockState, On
-
+; ==== CapsLock/Control/RightAlt remap
+CapsLock::Control
+RAlt::CapsLock
 
 ;===== vim 方向键映射
 !k::
@@ -35,16 +34,18 @@ return
 ;=== delete a word
 !w:: Send ^+{Left}{Delete}
 
-;==== CapsLock 层
-; 删除到行尾
-CapsLock & ]:: Send, +{End}{Del}
-; 删除到行首
-CapsLock & [:: Send, +{Home}{Del}
-; CapsLock+kjhl 选中
-CapsLock & k::Send {ShiftDown}{Up}{shiftup}
-CapsLock & j::Send {ShiftDown}{Down}{shiftup}
-CapsLock & h::Send {ShiftDown}{Left}{shiftup}
-CapsLock & l::Send {ShiftDown}{Right}{shiftup}
+
+;2023-10-08: rm CapsLock layer
+;;==== CapsLock 层
+;; 删除到行尾
+;CapsLock & ]:: Send, +{End}{Del}
+;; 删除到行首
+;CapsLock & [:: Send, +{Home}{Del}
+;; CapsLock+kjhl 选中
+;CapsLock & k::Send {ShiftDown}{Up}{shiftup}
+;CapsLock & j::Send {ShiftDown}{Down}{shiftup}
+;CapsLock & h::Send {ShiftDown}{Left}{shiftup}
+;CapsLock & l::Send {ShiftDown}{Right}{shiftup}
 
 
 ;=== close window
