@@ -59,11 +59,17 @@ vmap ;y : !/mnt/c/Windows/System32/clip.exe<cr>u''
 
 if exists('g:vscode')
     " VSCode extension 
+    
+    " in vscode, forget <leader>go, use gd
     nnoremap <leader>fi <Cmd>call VSCodeNotify('editor.action.quickFix')<CR>
     vnoremap <leader>f <Cmd>call VSCodeCall('editor.action.formatSelection')<CR><Esc>
-    " gd for <leader>go
-    " K to show Hover
-    " to see more: 
+    nnoremap <leader>t <Cmd>call VSCodeNotify('workbench.action.terminal.toggleTerminal')<CR>
+
+    " nnoremap K <Cmd>call VSCodeNotify('editor.action.showHover')<CR>
+    " nnoremap gh <Cmd>call VSCodeNotify('editor.action.showHover')<CR>
+    " nnoremap gd 
+    " nnoremap gD <Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>
+    " above is defualt, to see more: 
     " https://github.com/vscode-neovim/vscode-neovim/blob/master/vim/vscode-code-actions.vim
 else
     " ordinary Neovim
