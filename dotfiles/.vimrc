@@ -49,11 +49,11 @@ autocmd FileType c,cpp imap fori for(int i = 0; i < LEN; i++)
 autocmd FileType c,cpp imap forj for(int j = 0; j < LEN; j++)
 autocmd FileType c,cpp imap fork for(int k = 0; k < LEN; k++)
 autocmd FileType c,cpp imap ulog rc = scanf("",);<CR>assert(rc == );
-autocmd FileType c nnoremap <buffer> <leader>log 0wd$Iprintf("", );<ESC>hPbblli
+autocmd FileType c nnoremap <buffer> <leader>log ^d$Iprintf("", );<ESC>hPF"i
 autocmd FileType c nnoremap <buffer> <leader>x :w<CR>:!gcc % -lm && ./a.out<CR>
 autocmd FileType c nnoremap <buffer> <leader>e :w<CR>:!gcc % -E<CR>
 " for python
-autocmd FileType python nnoremap <buffer> <leader>log 0wd$Iprint()<ESC>P
+autocmd FileType python nnoremap <buffer> <leader>log ^d$Iprint()<ESC>P
 autocmd FileType python nnoremap <buffer> <leader>x :w<CR>:!python3 temp.py<CR>
 
 " yank to windows clipboard, do not support Chinese
