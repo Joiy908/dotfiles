@@ -1,0 +1,52 @@
+set ts=4
+set expandtab
+set autoindent
+set nu
+set ruler
+syntax on
+set nocompatible
+set shortmess+=I
+set number
+set relativenumber
+set laststatus=2
+set backspace=indent,eol,start
+set hidden
+set ignorecase
+set smartcase
+
+
+" mappings
+let mapleader = " "
+nnoremap <leader><Space> :
+nmap <leader>h :noh<CR>
+imap jkjk <Esc>
+" nmap Q <Nop>set noerrorbells visualbell t_vb=
+set mouse+=a
+nnoremap <Left>  :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up>    :echoe "Use k"<CR>
+nnoremap <Down>  :echoe "Use j"<CR>
+" ...and in insert mode
+" no, don't ban arrow in insert mode
+
+" go to somewhere (g in normal mode for goto somewhere)
+nnoremap gd :<C-u>action GotoDeclaration<CR>
+
+nnoremap gs :<C-u>action GotoSuperMethod<CR>
+nnoremap gi :<C-u>action GotoImplementation<CR>
+
+nnoremap gu :<C-u>action ShowUsages<CR>
+nnoremap gt :<C-u>action GotoTest<CR>
+
+nnoremap gp :<C-u>action FindInPath<CR>
+nnoremap gr :<C-u>action RecentFiles<CR>
+
+" go to the filters of
+nnoremap ga :<C-u>action GotoAction<CR>
+nnoremap gc :<C-u>action GotoClass<CR>
+nnoremap gf :<C-u>action GotoFile<CR>
+nnoremap gm :<C-u>action GotoSymbol<CR>
+
+
+vnoremap ;y "+y
+
