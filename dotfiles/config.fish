@@ -60,3 +60,8 @@ set there "$HOME/.shell.here"
 function there
     cd (readlink "$there")
 end
+
+# set go path
+set -x GOROOT /usr/local/go
+set -x GOPATH $HOME/go
+set -x PATH $GOPATH/bin $GOROOT/bin $PATH

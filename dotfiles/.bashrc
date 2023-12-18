@@ -188,3 +188,6 @@ alias go110="cd /mnt/d/src/etc/CS110L"
 alias gong="cd /usr/local/nginx"
 # source ~/.shell/aliases.sh
 #  ====================================== end Alias
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
