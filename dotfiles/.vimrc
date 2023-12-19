@@ -20,9 +20,9 @@ autocmd FileType c,cpp,javascript set tabstop=2
 autocmd FileType c,cpp,javascript set shiftwidth=2
 autocmd FileType c,cpp,javascript set expandtab
 
-" Set tab size for Python files
-autocmd FileType python set tabstop=4
-autocmd FileType python set shiftwidth=4
+" Set tab size for Python,go files
+autocmd FileType python,go set tabstop=4
+autocmd FileType python,go set shiftwidth=4
 autocmd FileType python set expandtab
 
 " auto close the preview window after autoCompletion
@@ -55,6 +55,12 @@ autocmd FileType c nnoremap <buffer> <leader>e :w<CR>:!gcc % -E<CR>
 " for python
 autocmd FileType python nnoremap <buffer> <leader>log ^d$Iprint()<ESC>P
 autocmd FileType python nnoremap <buffer> <leader>x :w<CR>:!python3 temp.py<CR>
+" for go
+autocmd FileType go nnoremap <buffer> <leader>log ^d$Ifmt.Println()<ESC>P
+autocmd FileType go nnoremap <buffer> <leader>x :w<CR>:GoRun %<CR>
+autocmd FileType go noremap <leader>f :GoFmt<CR>
+" autocmd FileType go nmap <leader>b <Plug>(go-build)
+
 
 " yank to windows clipboard, do not support Chinese
 vmap ;y : !/mnt/c/Windows/System32/clip.exe<cr>u''
@@ -104,6 +110,8 @@ else
         Plug 'kien/ctrlp.vim'
         nnoremap <C-p>  :CtrlP<CR>
         let g:ctrlp_show_hidden = 1
+
+        Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
         " note: this slow down the vim start-up-time
         " Plug 'vim-airline/vim-airline'
