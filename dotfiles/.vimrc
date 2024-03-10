@@ -44,13 +44,14 @@ nnoremap <leader>t :w<CR>:term fish<CR>
 " ...and in insert mode
 " no, don't ban arrow in insert mode
 
-" for c coding
+" for C/C++ coding
 autocmd FileType c,cpp imap fori for(int i = 0; i < LEN; i++)
 autocmd FileType c,cpp imap forj for(int j = 0; j < LEN; j++)
 autocmd FileType c,cpp imap fork for(int k = 0; k < LEN; k++)
 autocmd FileType c,cpp imap ulog rc = scanf("",);<CR>assert(rc == );
 autocmd FileType c nnoremap <buffer> <leader>log ^d$Iprintf("", );<ESC>hPF"i
 autocmd FileType c nnoremap <buffer> <leader>x :w<CR>:!gcc % -lm && ./a.out<CR>
+autocmd FileType cpp nnoremap <buffer> <leader>x :w<CR>:!g++ % && ./a.out<CR>
 autocmd FileType c nnoremap <buffer> <leader>e :w<CR>:!gcc % -E<CR>
 " for python
 autocmd FileType python nnoremap <buffer> <leader>log ^d$Iprint()<ESC>P
@@ -63,7 +64,7 @@ autocmd FileType go noremap <leader>f :GoFmt<CR>
 
 
 " yank to windows clipboard, do not support Chinese
-vmap ;y : !/mnt/c/Windows/System32/clip.exe<cr>u''
+vmap ;y :!/mnt/c/Windows/System32/clip.exe<CR>u''
 
 if exists('g:vscode')
     " VSCode extension 

@@ -41,6 +41,9 @@ alias go186='cd /mnt/d/src/etc/CS186'
 alias go110='cd /mnt/d/src/etc/CS110L'
 alias gong='cd /usr/local/nginx'
 
+alias antlr4='java -cp /usr/local/lib/antlr-4.13.1-complete.jar org.antlr.v4.Tool'
+alias grun='java -cp .:/usr/local/lib/antlr-4.13.1-complete.jar org.antlr.v4.gui.TestRig'
+
 # Functions
 # Define 'here' function
 function here
