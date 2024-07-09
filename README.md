@@ -35,8 +35,9 @@ sudo apt-get install -y fish
 chsh -s /usr/bin/fish
 
 # Install neovim
-sudo add-apt-repository ppa:neovim-ppa/stable
-sudo apt-get install -y neovim
+#no sudo add-apt-repository ppa:neovim-ppa/stable
+#no sudo apt-get install -y neovim
+go to https://github.com/neovim/neovim/blob/master/INSTALL.md to get the latest version
 # install vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
