@@ -36,7 +36,53 @@ read -p "Stages: " input
 
 # Function to check if a stage is selected
 is_selected() {
-  [[ $input == *$1* ]]
+  [[ $input == *$1* ]] || [[ $input == "-a" ]]
+}
+
+# Prompt user to select Ubuntu version
+echo "choose version of Ubuntu ："
+echo "1) 22.04 (Jammy)"
+echo "2) 20.04 (Focal)"
+read -p "input (1 or 2): " version_choice
+
+# 根据用户选择设置版本变量
+if [[ $version_choice -eq 1 ]]; then
+  version="jammy"
+elif [[ $version_choice -eq 2 ]]; then
+  version="focal"
+else
+  echo "invalid input"
+  exit 1
+fi
+
+generate_sources_list() {
+  if [[ $version == "jammy" ]]; then
+    cat <<EOF
+deb http://mirrors.163.com/ubuntu/ jammy main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ jammy-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ jammy-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ jammy-proposed main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ jammy-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ jammy main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ jammy-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ jammy-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ jammy-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ jammy-backports main restricted universe multiverse
+EOF
+  else
+    cat <<EOF
+deb http://mirrors.163.com/ubuntu/ focal main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ focal-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ focal-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ focal-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ focal main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ focal-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ focal-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ focal-backports main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ focal-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ focal-proposed main restricted universe multiverse
+EOF
+  fi
 }
 
 # Execute selected stages
@@ -84,7 +130,7 @@ fi
 
 if is_selected 5; then
   echo "== Change APT source and update programs"
-  sudo cp ./sources.list /etc/apt
+  generate_sources_list | sudo tee /etc/apt/sources.list
   sudo apt update
   sudo apt upgrade
   check "APT source change and update failed"
