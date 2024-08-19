@@ -130,6 +130,7 @@ fi
 
 if is_selected 5; then
   echo "== Change APT source and update programs"
+  sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
   generate_sources_list | sudo tee /etc/apt/sources.list
   sudo apt update
   sudo apt upgrade
