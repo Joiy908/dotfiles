@@ -68,3 +68,8 @@ end
 set -x GOROOT /usr/local/go
 set -x GOPATH $HOME/go
 set -x PATH $GOPATH/bin $GOROOT/bin $PATH
+
+# set proxy
+set -x https_proxy http://127.0.0.1:7890
+set -x http_proxy http://127.0.0.1:7890
+set -x all_proxy http://127.0.0.1:7890
