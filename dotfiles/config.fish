@@ -3,11 +3,13 @@ if status is-interactive
 end
 
 function fish_prompt --description 'Write out the prompt'
+    # Capture the exit status of the last command
+    set last_status $status
+
     set_color cyan
     echo -n "╭─"
-    set_color normal
 
-    # show user
+    # Show user
     set_color green
     echo -n $USER
     set_color white
@@ -16,7 +18,12 @@ function fish_prompt --description 'Write out the prompt'
     # Display current directory
     set_color yellow
     echo -n (prompt_pwd)
-    set_color normal
+
+    # Display last process return code if non-zero
+    if test $last_status -ne 0
+        set_color red
+        echo -n " [$last_status]"
+    end
 
     # Add newline and prompt symbol
     set_color cyan
@@ -24,6 +31,7 @@ function fish_prompt --description 'Write out the prompt'
     echo -n "╰─❯ "
     set_color normal
 end
+
 
 # Alias definitions
 alias ll='ls -lah'
