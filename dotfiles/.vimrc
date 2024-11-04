@@ -83,6 +83,8 @@ if exists('g:vscode')
 else
     " ordinary Neovim
     if system('uname') =~# 'Linux'
+        " yank to linux clipboard
+        vmap ;y "+y
         " === start import plugin
         call plug#begin('~/.vim/plugged')
 
