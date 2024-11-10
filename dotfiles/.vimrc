@@ -63,8 +63,8 @@ autocmd FileType go noremap <leader>f :GoFmt<CR>
 " autocmd FileType go nmap <leader>b <Plug>(go-build)
 
 
-" yank to windows clipboard, do not support Chinese
-vmap ;y :!/mnt/c/Windows/System32/clip.exe<CR>u''
+" yank to linux clipboard
+vmap ;y "+y
 
 if exists('g:vscode')
     " VSCode extension 
@@ -83,8 +83,6 @@ if exists('g:vscode')
 else
     " ordinary Neovim
     if system('uname') =~# 'Linux'
-        " yank to linux clipboard
-        vmap ;y "+y
         " === start import plugin
         call plug#begin('~/.vim/plugged')
 
