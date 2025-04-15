@@ -108,7 +108,7 @@ if is_selected 3; then
   ln -s $(pwd)/.vimrc ~/.vimrc
   ln -s $(pwd)/.bashrc ~/.bashrc
 
-  mkdir -p ~/.config/fish
+  #mkdir -p ~/.config/fish
   rm ~/.config/fish/config.fish
   ln -s $(pwd)/config.fish ~/.config/fish/config.fish
   
