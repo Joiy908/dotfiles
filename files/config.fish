@@ -81,3 +81,10 @@ set -x PATH $GOPATH/bin $GOROOT/bin $PATH
 set -x https_proxy http://127.0.0.1:7890
 set -x http_proxy http://127.0.0.1:7890
 set -x all_proxy http://127.0.0.1:7890
+
+function unset_proxy --description 'Unset proxy env vars'
+  set -e http_proxy
+  set -e https_proxy
+  set -e all_proxy
+  echo "Proxy variables unset"
+end

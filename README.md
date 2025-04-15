@@ -8,12 +8,12 @@ git clone --depth=1 git@github.com:Joiy908/dotfiles.git
 
 # move dotfiles
 rm ~/.vimrc ~/.bashrc
-ln dotfiles/.vimrc ~/.vimrc
-ln dotfiles/.bashrc ~/.bashrc
+ln files/.vimrc ~/.vimrc
+ln files/.bashrc ~/.bashrc
 
 mkdir -p ~/.config/fish
 rm ~/.config/fish/config.fish
-ln dotfiles/config.fish ~/.config/fish/config.fish
+ln files/config.fish ~/.config/fish/config.fish
 
 mkdir -p ~/.config/nvim
 rm ~/.config/nvim/init.vim

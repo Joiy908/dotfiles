@@ -5,6 +5,7 @@ BLUE=$(tput setaf 14)
 RED=$(tput setaf 9)
 NC=$(tput sgr0)
 
+# Error checking function
 check() {
   if [ $? -ne 0 ]; then
     echo "${RED}$1${NC}"
@@ -12,13 +13,36 @@ check() {
   fi
 }
 
+# Detect distribution
+if [ -f /etc/os-release ]; then
+  . /etc/os-release
+  DISTRO=$ID
+else
+  echo "${RED}Cannot determine distribution${NC}"
+  exit 1
+fi
+
+# Package manager setup
+if [[ "$DISTRO" == "ubuntu" || "$DISTRO" == "debian" ]]; then
+  PKG_INSTALL="sudo apt install -y"
+  PKG_UPDATE="sudo apt update"
+  PKG_UPGRADE="sudo apt upgrade -y"
+elif [[ "$DISTRO" == "arch" ]]; then
+  PKG_INSTALL="sudo pacman -S --noconfirm"
+  PKG_UPDATE="sudo pacman -Syu --noconfirm"
+  PKG_UPGRADE="sudo pacman -Syu --noconfirm"
+else
+  echo "${RED}Unsupported distribution: $DISTRO${NC}"
+  exit 1
+fi
+
 # Define stages
 stages=(
   "Install Git"
   "Clone dotfile repo"
   "Set up vim, bash, fish, tmux dotfiles"
   "Set up Neovim dotfiles"
-  "Change APT source and update programs"
+  "Change package source and update programs"
   "Install Python3 and essential packages"
   "Install fish shell"
   "Install Neovim"
@@ -26,7 +50,7 @@ stages=(
 )
 
 # Display stages
-echo "Please input the stages you want to run (e.g., 1235):"
+echo "Please input the stages you want to run (e.g., 1235, or -a for all):"
 for i in "${!stages[@]}"; do
   echo "$((i+1)): ${stages[$i]}"
 done
@@ -39,24 +63,9 @@ is_selected() {
   [[ $input == *$1* ]] || [[ $input == "-a" ]]
 }
 
-# Prompt user to select Ubuntu version
-echo "choose version of Ubuntu ："
-echo "1) 22.04 (Jammy)"
-echo "2) 20.04 (Focal)"
-read -p "input (1 or 2): " version_choice
-
-# 根据用户选择设置版本变量
-if [[ $version_choice -eq 1 ]]; then
-  version="jammy"
-elif [[ $version_choice -eq 2 ]]; then
-  version="focal"
-else
-  echo "invalid input"
-  exit 1
-fi
-
+# Generate sources.list for Ubuntu/Debian
 generate_sources_list() {
-  if [[ $version == "jammy" ]]; then
+  if [[ "$version" == "jammy" ]]; then
     cat <<EOF
 deb http://mirrors.163.com/ubuntu/ jammy main restricted universe multiverse
 deb http://mirrors.163.com/ubuntu/ jammy-security main restricted universe multiverse
@@ -88,7 +97,7 @@ EOF
 # Execute selected stages
 if is_selected 1; then
   echo "== Install Git"
-  sudo apt install git
+  $PKG_INSTALL git
   check "Failed to install Git"
 fi
 
@@ -97,21 +106,20 @@ if is_selected 2; then
   git clone --depth=1 git@github.com:Joiy908/dotfiles.git
   if [ $? -ne 0 ]; then
     git clone --depth=1 https://gitee.com/joiy908/dotfiles.git
-    check "Fail to clone"
+    check "Failed to clone"
   fi
   cd dotfiles
 fi
 
 if is_selected 3; then
   echo "== Set up vim, bash, fish, tmux dotfiles"
-  rm ~/.vimrc ~/.bashrc
-  ln -s $(pwd)/.vimrc ~/.vimrc
-  ln -s $(pwd)/.bashrc ~/.bashrc
-
-  #mkdir -p ~/.config/fish
-  rm ~/.config/fish/config.fish
-  ln -s $(pwd)/config.fish ~/.config/fish/config.fish
-  
+  # Ensure ~/.config/fish exists
+  mkdir -p ~/.config/fish
+  # Remove existing files (if any) and create symlinks
+  ln -f "files/.vimrc" ~/.vimrc
+  ln -f "files/.bashrc" ~/.bashrc
+  ln -f "files/config.fish" ~/.config/fish/config.fish
+  # Create tmux config
   cat <<EOF > ~/.tmux.conf
 # Display color
 set -g default-terminal "screen-256color"
@@ -124,42 +132,64 @@ fi
 if is_selected 4; then
   echo "== Set up Neovim dotfiles"
   mkdir -p ~/.config/nvim
-  rm ~/.config/nvim/init.vim
   echo "source ~/.vimrc" > ~/.config/nvim/init.vim
 fi
 
 if is_selected 5; then
-  echo "== Change APT source and update programs"
-  sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
-  generate_sources_list | sudo tee /etc/apt/sources.list
-  sudo apt update
-  sudo apt upgrade
-  check "APT source change and update failed"
+  echo "== Change package source and update programs"
+  if [[ "$DISTRO" == "ubuntu" || "$DISTRO" == "debian" ]]; then
+    # Prompt for Ubuntu version
+    echo "Choose version of Ubuntu:"
+    echo "1) 22.04 (Jammy)"
+    echo "2) 20.04 (Focal)"
+    read -p "Input (1 or 2): " version_choice
+    if [[ $version_choice -eq 1 ]]; then
+      version="jammy"
+    elif [[ $version_choice -eq 2 ]]; then
+      version="focal"
+    else
+      echo "${RED}Invalid input${NC}"
+      exit 1
+    fi
+    sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
+    generate_sources_list | sudo tee /etc/apt/sources.list
+    $PKG_UPDATE
+    $PKG_UPGRADE
+    check "Package source change and update failed"
+  elif [[ "$DISTRO" == "arch" ]]; then
+    # For Arch, update mirrorlist (optional, using a Chinese mirror as example)
+    echo "Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch" | sudo tee /etc/pacman.d/mirrorlist
+    $PKG_UPDATE
+    check "Package update failed"
+  fi
 fi
 
 if is_selected 6; then
   echo "== Install Python3 and essential packages"
-  sudo apt-get install -y python-dev python-pip python3-dev
-  check "Failed to install Python3 and essential packages"
-
-  sudo apt-get install -y python3-setuptools
-  check "Failed to install Python3 and essential packages"
-
-  sudo apt install -y python3-pip
+  if [[ "$DISTRO" == "ubuntu" || "$DISTRO" == "debian" ]]; then
+    $PKG_INSTALL python3 python3-dev python3-setuptools
+  elif [[ "$DISTRO" == "arch" ]]; then
+    $PKG_INSTALL python3 cmake
+  fi
   check "Failed to install Python3 and essential packages"
 fi
 
 if is_selected 7; then
   echo "== Install fish shell"
-  sudo apt-get install -y fish
+  $PKG_INSTALL fish
   check "Failed to install fish shell"
   chsh -s /usr/bin/fish
 fi
 
 if is_selected 8; then
   echo "== Install Neovim"
-  sudo add-apt-repository ppa:neovim-ppa/stable
-  sudo apt-get install -y neovim
+  if [[ "$DISTRO" == "ubuntu" || "$DISTRO" == "debian" ]]; then
+    sudo add-apt-repository ppa:neovim-ppa/unstable -y
+    $PKG_UPDATE
+    $PKG_INSTALL neovim python3-neovim build-essential cmake python3-dev g++
+  elif [[ "$DISTRO" == "arch" ]]; then
+    $PKG_INSTALL neovim python-pynvim
+  fi
   check "Failed to install Neovim"
 fi
 
@@ -168,8 +198,9 @@ if is_selected 9; then
   sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
          https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   check "Failed to install vim-plug for Neovim"
+  echo "In nvim, run :PlugInstall"
+  echo "Then:"
+  echo "cd ~/.vim/plugged/YouCompleteMe && python3 install.py --clangd-completer"
 fi
 
-echo "in nvim :PlugInstall"
-echo "then"
-echo "cd ~/.vim/plugged/YouCompleteMe && python3 install.py --clangd-completer"
+
